@@ -33,7 +33,9 @@ async def add_data(request: Request, item: Union[str, int]):
     url = str(request.url)
     cookies = request.cookies
     body = await request.body()
-    
+
+    data.append(item.item)  
+
     data.append(item)
     return {
         "method": method,
