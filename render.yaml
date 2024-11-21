@@ -5,5 +5,5 @@ services:
     region: frankfurt
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: uvicorn app:app
     autoDeploy: true
