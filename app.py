@@ -14,6 +14,10 @@ class Item(BaseModel):
 class ReplaceData(BaseModel):
     new_data: List[Union[str, int]]
 
+class UpdateItem(BaseModel):
+    index: int
+    new_value: Union[str, int]
+
 @app.get("/")
 async def get_data(request: Request):
     headers = dict(request.headers)
@@ -77,7 +81,7 @@ async def replace_data(request: Request, new_data: ReplaceData):
     }
 
 @app.patch("/")
-async def update_data(request: Request, index: int, new_value: Union[str, int]):
+async def update_data(request: Request, update: UpdateItem):
     headers = dict(request.headers)
     query_params = dict(request.query_params)
     method = request.method
@@ -85,9 +89,9 @@ async def update_data(request: Request, index: int, new_value: Union[str, int]):
     cookies = request.cookies
     body = await request.body()
     
-    if index < 0 or index >= len(data):
+    if update.index < 0 or update.index >= len(data):
         raise HTTPException(status_code=400, detail="Index out of range")
-    data[index] = new_value
+    data[update.index] = update.new_value
     return {
         "method": method,
         "url": url,
