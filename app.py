@@ -1,10 +1,18 @@
 from fastapi import FastAPI, Request, HTTPException
 from typing import List, Union
+from pydantic import BaseModel
 
 app = FastAPI()
 
 # Datos en memoria
 data: Union[List[str], List[int]] = []
+
+# Modelo Pydantic para validación
+class Item(BaseModel):
+    item: Union[str, int]
+
+class ReplaceData(BaseModel):
+    new_data: List[Union[str, int]]
 
 @app.get("/")
 async def get_data(request: Request):
@@ -26,7 +34,7 @@ async def get_data(request: Request):
     }
 
 @app.post("/")
-async def add_data(request: Request, item: Union[str, int]):
+async def add_data(request: Request, item: Item):
     headers = dict(request.headers)
     query_params = dict(request.query_params)
     method = request.method
@@ -34,9 +42,7 @@ async def add_data(request: Request, item: Union[str, int]):
     cookies = request.cookies
     body = await request.body()
 
-    data.append(item.item)  
-
-    data.append(item)
+    data.append(item.item)  # Solo agrega el valor del campo `item`
     return {
         "method": method,
         "url": url,
@@ -49,7 +55,7 @@ async def add_data(request: Request, item: Union[str, int]):
     }
 
 @app.put("/")
-async def replace_data(request: Request, new_data: List[Union[str, int]]):
+async def replace_data(request: Request, new_data: ReplaceData):
     headers = dict(request.headers)
     query_params = dict(request.query_params)
     method = request.method
@@ -58,7 +64,7 @@ async def replace_data(request: Request, new_data: List[Union[str, int]]):
     body = await request.body()
     
     global data
-    data = new_data
+    data = new_data.new_data
     return {
         "method": method,
         "url": url,
