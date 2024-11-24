@@ -126,3 +126,23 @@ async def delete_data(request: Request, index: int):
         "removed_item": removed_item,
         "data": data
     }
+
+@app.options("/")
+async def options_data(request: Request):
+    headers = dict(request.headers)
+    query_params = dict(request.query_params)
+    method = request.method
+    url = str(request.url)
+    cookies = request.cookies
+    body = await request.body()
+
+    return {
+        "method": method,
+        "url": url,
+        "headers": headers,
+        "query_params": query_params,
+        "cookies": cookies,
+        "body": body.decode('utf-8'),
+        "message": "OPTIONS request received. You can use GET, POST, PUT, PATCH, DELETE, OPTIONS."
+    }
+
