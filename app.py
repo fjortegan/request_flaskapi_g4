@@ -9,9 +9,14 @@ from datetime import datetime, timedelta
 # Inicializa FastAPI
 app = FastAPI(debug=True)
 
+origins = [
+    "http://localhost:5173",
+    "https://wonderful-druid-9bfaf6.netlify.app",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
