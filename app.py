@@ -11,7 +11,7 @@ app = FastAPI(debug=True)
 
 origins = [
     "http://localhost:5173",
-    "https://calm-jalebi-b8e082.netlify.app",
+    "https://deploy-react-front.vercel.app",
 ]
 
 app.add_middleware(
