@@ -16,20 +16,11 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-@app.middleware("http")
-async def add_cors_headers(request, call_next):
-    response = await call_next(request)
-    # Incluye los encabezados necesarios para solicitudes HTTPS
-    response.headers["Access-Control-Allow-Origin"] = "https://deploy-reactfront.onrender.com"  # Cambia esto por el origen exacto de tu frontend
-    response.headers["Access-Control-Allow-Credentials"] = "true"
-    response.headers["Access-Control-Allow-Methods"] = "OPTIONS, POST, GET, PUT, DELETE"
-    response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type"
-    return response
 
 # Usuarios predefinidos (email: password)
 usuarios = {"a@gmail.com": "12345678"}
