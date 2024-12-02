@@ -11,7 +11,7 @@ app = FastAPI(debug=True)
 
 origins = [
     "http://localhost:5173",
-    "https://deploy-react-front.vercel.app",
+    "https://deploy-reactfront.onrender.com",
 ]
 
 app.add_middleware(
