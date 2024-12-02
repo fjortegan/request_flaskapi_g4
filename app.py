@@ -65,6 +65,18 @@ def validate_token(token: str):
 def get_current_user(token: str = Depends(oauth2_scheme)):
     return validate_token(token)
 
+@app.options("/login")
+async def options_login():
+    return JSONResponse(
+        content={"message": "Preflight request successful"},
+        headers={
+            "Access-Control-Allow-Origin": "https://deploy-reactfront.onrender.com",  # Cambia esto según el origen exacto
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Authorization, Content-Type",
+            "Access-Control-Allow-Credentials": "true",
+        },
+    )
+    
 # Login (genera un JWT)
 @app.post("/login")
 async def login(credentials: HTTPBasicCredentials = Depends(HTTPBasic())):
