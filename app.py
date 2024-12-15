@@ -10,14 +10,13 @@ from datetime import datetime, timedelta
 app = FastAPI(debug=True)
 
 origins = [
-    "http://localhost:5173",
     "https://deploy-react-front-g4.vercel.app",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-#    allow_origins=origins,
-    allow_origins=["*"],
+    allow_origins=origins,
+#    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -105,7 +104,6 @@ app = FastAPI(debug=True)
 
 # Configurar CORS
 origins = [
-    "http://localhost:5173",
     "https://deploy-react-front-g4.vercel.app",
 ]
 
