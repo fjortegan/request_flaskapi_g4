@@ -71,7 +71,7 @@ async def options_login():
     return JSONResponse(
         content={"message": "Preflight request successful"},
         headers={
-            "Access-Control-Allow-Origin": "https://deploy-reactfront.onrender.com",  # Cambia esto según el origen exacto
+            "Access-Control-Allow-Origin": "https://deploy-react-front-g4.vercel.app",  # Cambia esto según el origen exacto
             "Access-Control-Allow-Methods": "POST, OPTIONS",
             "Access-Control-Allow-Headers": "Authorization, Content-Type",
             "Access-Control-Allow-Credentials": "true",
@@ -106,6 +106,7 @@ app = FastAPI(debug=True)
 # Configurar CORS
 origins = [
     "http://localhost:5173",
+    "https://deploy-react-front-g4.vercel.app",
 ]
 
 app.add_middleware(
